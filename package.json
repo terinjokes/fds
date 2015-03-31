@@ -1,0 +1,27 @@
+{
+  "name": "fds",
+  "version": "1.0.0",
+  "description": "Set file descriptors to non-blocking",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terinjokes/libuv-fd-open.git"
+  },
+  "keywords": [
+    "libuv",
+    "fd"
+  ],
+  "author": "Terin Stock <terinjokes@gmail.com> (https://terinstock.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/terinjokes/libuv-fd-open/issues"
+  },
+  "homepage": "https://github.com/terinjokes/libuv-fd-open",
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "nan": "^1.7.0"
+  }
+}
