@@ -1,10 +1,7 @@
 #include <node.h>
 #include <nan.h>
 
-using v8::Object;
-using v8::Handle;
 using v8::FunctionTemplate;
-using v8::String;
 
 #if defined(_WIN32)
 # include "fds-win.h"
@@ -12,8 +9,9 @@ using v8::String;
 # include "fds-unix.h"
 #endif
 
-void Init(Handle<Object> exports) {
-  exports->Set(NanNew<String>("nonblock"), NanNew<FunctionTemplate>(nonblock)->GetFunction());
+NAN_MODULE_INIT(Init) {
+  Nan::Set(target, Nan::New("nonblock").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<FunctionTemplate>(nonblock)).ToLocalChecked());
 }
 
 NODE_MODULE(fds, Init);

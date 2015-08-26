@@ -1,4 +1,3 @@
-#include <node.h>
 #include <nan.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -7,14 +6,9 @@
 # include <sys/ioctl.h>
 #endif
 
-using v8::Object;
-using v8::Handle;
-
 NAN_METHOD(nonblock) {
-  NanScope();
-  int fd = args[0]->Uint32Value();
+  int fd = info[0]->Uint32Value();
   int set = 1;
-  int flags;
   int r;
 
 #if defined(__linux__) || defined(__FreeBSD__) || defined(__APPLE__) || defined(_AIX)
@@ -23,33 +17,34 @@ NAN_METHOD(nonblock) {
   while (r == -1 && errno == EINTR);
 
   if (r) {
-    NanThrowError(NanError(strerror(errno), errno));
-    NanReturnUndefined();
+    Nan::ThrowError(strerror(errno));
+    return;
   }
-
-  NanReturnUndefined();
 #else
+  int flags;
+
   do
     r = fncntl(fd, F_GETFL);
   while (r == -1 && errno == EINTR);
 
-  if (r == -1)
-    NanThrowError(NanError(strerror(errno), errno));
-    NanReturnUndefined();
+  if (r == -1) {
+    Nan::ThrowError(strerror(errno));
+    return;
+  }
 
-  if (!!(r & O_NONBLOCK) == !!set)
-    NanReturnUndefined();
+  if (!!(r & O_NONBLOCK) == !!set) {
+    return;
+  }
 
   flags = r | O_NONBLOCK;
 
-  do
+  do {
     r = fcntl(fd, F_SETFL, flags);
-  while (r == -1 && errno == EINTR);
+  } while (r == -1 && errno == EINTR);
 
-  if (r)
-    NanThrowError(NanError(strerror(errno), errno));
-    NanReturnUndefined();
-
-  NanReturnUndefined();
+  if (r) {
+    Nan::ThrowError(strerror(errno));
+    return;
+  }
 #endif
 }
