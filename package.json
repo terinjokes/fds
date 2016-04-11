@@ -1,6 +1,6 @@
 {
   "name": "fds",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Set file descriptors to non-blocking",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,11 @@
   "keywords": [
     "libuv",
     "fd"
+  ],
+  "files": [
+    "index.js",
+    "src",
+    "binding.gyp"
   ],
   "author": "Terin Stock <terinjokes@gmail.com> (https://terinstock.com/)",
   "license": "MIT",
