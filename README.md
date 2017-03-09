@@ -1,4 +1,6 @@
 # fds
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/terinjokes/fds.svg)](https://greenkeeper.io/)
 > Set non-block mode on file descriptors.
 
 ## Why?
